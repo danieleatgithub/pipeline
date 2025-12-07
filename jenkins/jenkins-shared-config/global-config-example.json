@@ -1,0 +1,9 @@
+{
+  "version": "1.0",
+  "environment": "production",
+  "machines": {
+    "name": {
+      "ip": "ip address",
+      "temp": "/tmp"
+    }
+}
