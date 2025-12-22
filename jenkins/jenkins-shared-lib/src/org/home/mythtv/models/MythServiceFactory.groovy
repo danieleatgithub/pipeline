@@ -14,7 +14,4 @@ class MythServiceFactory implements Serializable {
         return new MythStorageService(steps, baseUrl)
     }
 
-    // futuro:
-    // MythRecordingService
-    // MythVideoService
 }

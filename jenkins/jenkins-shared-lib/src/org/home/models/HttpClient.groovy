@@ -7,7 +7,6 @@ class HttpClient implements Serializable {
 
     private final def steps
     private final String baseUrl
-    private final JsonSlurper jsonSlurper = new JsonSlurper()
 
     HttpClient(steps, String baseUrl) {
         this.steps = steps
@@ -15,35 +14,35 @@ class HttpClient implements Serializable {
     }
 
     Map get(String path, Map headers = [:]) {
-        return request(
-            method: 'GET',
-            path: path,
-            headers: headers
-        )
+        return request('GET', path, [:], headers)
     }
 
     Map post(String path, Map body = [:], Map headers = [:]) {
-        return request(
-            method: 'POST',
-            path: path,
-            body: body,
-            headers: headers
-        )
+        return request('POST', path, body, headers)
     }
 
-    private Map request(Map args) {
+    private Map request(String method, String path, Map body, Map headers) {
+
         def response = steps.httpRequest(
-            httpMode: args.method,
-            url: "${baseUrl}${args.path}",
-            contentType: args.method == 'POST' ? 'APPLICATION_JSON' : null,
-            requestBody: args.body ? JsonOutput.toJson(args.body) : null,
-            customHeaders: toHeaders(args.headers),
-            validResponseCodes: '200,500'
+            httpMode: method,
+            url: "${baseUrl}${path}",
+            contentType: method == 'POST' ? 'APPLICATION_JSON' : null,
+            requestBody: body ? JsonOutput.toJson(body) : null,
+            customHeaders: toHeaders(headers),
+            validResponseCodes: '100:599'
         )
 
-        return response?.content
-            ? jsonSlurper.parseText(response.content)
-            : [:]
+        def result = [
+            status  : response.status,
+            headers : response.headers ?: [:],
+            body    : [:]
+        ]
+
+        if (response.content) {
+            result.body = new JsonSlurper().parseText(response.content) as Map
+        }
+
+        return result
     }
 
     private static List<Map> toHeaders(Map headers) {
