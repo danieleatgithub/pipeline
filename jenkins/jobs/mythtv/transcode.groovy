@@ -7,7 +7,6 @@ pipeline {
         MYTH_BASEURL = "http://192.168.1.66:6544"
         MOUNT_BASEURL = "http://192.168.1.99:18800"
         HOSTNAME = "i5-mythtv"
-        GROUPNAME = org.home.mythtv.Constants.VIDEO_GROUPNAME
         FILE_TO_FIND = "example.mp4"
     }
 
@@ -20,8 +19,14 @@ pipeline {
         stage('Initialize') {
             steps {
                 script {
+                    // Constants init
+                    GROUPNAME = org.home.mythtv.Constants.VIDEO_GROUPNAME
+
+                    // Environments init
                     env.CONFIG = loadConfigs("jobs/mythtv")
                     echo "Loaded config:" + env.CONFIG.toString()
+
+                    // Runtime init
                     echo "Mounting ${mountPoint}..."
                     def ret_mount = mountService(
                         baseUrl: MOUNT_BASEURL,
