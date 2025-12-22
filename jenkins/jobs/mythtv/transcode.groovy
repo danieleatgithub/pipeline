@@ -7,7 +7,7 @@ pipeline {
 
     environment {
         MYTH_BASEURL = "http://192.168.1.66:6544"
-        MOUNT_BASEURL = "http://192.168.1.99:18800"
+        LENOVOSRV_BASEURL = "http://192.168.1.66:18800"
         HOSTNAME = "i5-mythtv"
         FILE_TO_FIND = "example.mp4"
     }
@@ -28,7 +28,7 @@ pipeline {
                     // Runtime init
                     echo "Mounting mythtv ..."
                     def ret_mount = lenovosrvMountService(
-                        baseUrl: MOUNT_BASEURL,
+                        baseUrl: LENOVOSRV_BASEURL,
                         action: 'mount',
                         mountTarget: 'mythtv'
                     )
