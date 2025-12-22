@@ -5,7 +5,7 @@ import org.home.models.HttpClient
 class MythStorageService implements Serializable {
 
     private final HttpClient client
-    private final String endpoint = '/Myth/GetStorageGroupDirs/'
+    private final String endpoint = '/Myth/GetStorageGroupDirs'
 
     MythStorageService(HttpClient client) {
         this.client = client
