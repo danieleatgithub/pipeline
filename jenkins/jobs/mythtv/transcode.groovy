@@ -39,7 +39,7 @@ pipeline {
         stage('Get Storage Group Videos') {
             steps {
                 script {
-                    storageDirs = mythtvStorage(
+                    def storageDirs = mythtvStorage(
                         baseUrl: MYTH_BASEURL,
                         action: 'list',
                         groupName: GROUPNAME,
