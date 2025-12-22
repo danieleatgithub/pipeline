@@ -37,7 +37,8 @@ class HttpClient implements Serializable {
             contentType: method == 'POST' ? 'APPLICATION_JSON' : null,
             requestBody: body ? JsonOutput.toJson(body) : null,
             customHeaders: toHeaders(headers),
-            validResponseCodes: '100:599'
+            validResponseCodes: '100:599',
+            consoleLogResponseBody: true
         )
 
         def result = [

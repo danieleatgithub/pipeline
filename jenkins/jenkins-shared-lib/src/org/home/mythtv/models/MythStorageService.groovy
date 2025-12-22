@@ -5,26 +5,26 @@ import org.home.models.HttpClient
 class MythStorageService implements Serializable {
 
     private final HttpClient client
+    private final String endpoint = '/Myth/GetStorageGroupDirs/"'
 
-    // Ora riceve HttpClient già inizializzato dalla factory
     MythStorageService(HttpClient client) {
         this.client = client
     }
 
     Map getStorageGroupDirs() {
-        return client.get("/Myth/GetStorageGroupDirs", ['Accept':'application/json'])
+        return client.get(endpoint), ['Accept':'application/json'])
     }
 
     Map getStorageGroupList(String groupName = null, String hostName = null) {
         def query = []
         if (groupName) query << "GroupName=${URLEncoder.encode(groupName, 'UTF-8')}"
         if (hostName)  query << "HostName=${URLEncoder.encode(hostName, 'UTF-8')}"
-        def path = "/Myth/GetStorageGroupList" + (query ? "?" + query.join("&") : "")
+        def path = endpoint + (query ? "?" + query.join("&") : "")
         return client.get(path, ['Accept':'application/json'])
     }
 
     Map addStorageGroupDir(String dirName, String groupName, String hostName) {
-        return client.post("/Myth/AddStorageGroupDir", [
+        return client.post(endpoint, [
             DirName  : dirName,
             GroupName: groupName,
             HostName : hostName
@@ -32,7 +32,7 @@ class MythStorageService implements Serializable {
     }
 
     Map removeStorageGroupDir(String dirName, String groupName, String hostName) {
-        return client.post("/Myth/RemoveStorageGroupDir", [
+        return client.post(endpoint, [
             DirName  : dirName,
             GroupName: groupName,
             HostName : hostName

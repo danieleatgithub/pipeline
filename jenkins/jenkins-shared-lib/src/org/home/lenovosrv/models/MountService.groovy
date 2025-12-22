@@ -15,14 +15,14 @@ class MountService implements Serializable {
      * GET /mount
      */
     Map status() {
-        return client.get("/mount", ['Accept': 'application/json'])
+        return client.get("/mount/", ['Accept': 'application/json'])
     }
 
     /**
      * POST /mount con mount: true
      */
     Map mount(String mountTarget) {
-        return client.post("/mount", [
+        return client.post("/mount/", [
             mount_target: mountTarget,
             mount       : true
         ], ['Accept': 'application/json'])
@@ -32,7 +32,7 @@ class MountService implements Serializable {
      * POST /mount con mount: false
      */
     Map umount(String mountTarget) {
-        return client.post("/mount", [
+        return client.post("/mount/", [
             mount_target: mountTarget,
             mount       : false
         ], ['Accept': 'application/json'])
