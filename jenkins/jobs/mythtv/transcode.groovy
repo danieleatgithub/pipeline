@@ -44,7 +44,7 @@ pipeline {
                         action: 'list',
                         groupName: GROUPNAME,
                         hostName: HOSTNAME
-                    ).StorageGroupList.StorageGroups.collect { it.DirName }
+                    ).StorageGroupList.StorageGroupDirs.collect { it.DirName }
                     echo "Found storage dirs: ${storageDirs}"
                 }
             }
