@@ -1,5 +1,7 @@
 package org.home.mythtv.models
 
+import org.home.models.HttpClient
+
 class MythServiceFactory implements Serializable {
 
     def steps
