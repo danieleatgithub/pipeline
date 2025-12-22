@@ -1,5 +1,7 @@
 @Library('jenkins-shared-lib') _
 
+def GROUPNAME = org.home.mythtv.Constants.VIDEO_GROUPNAME
+
 pipeline {
     agent any
 
@@ -19,15 +21,12 @@ pipeline {
         stage('Initialize') {
             steps {
                 script {
-                    // Constants init
-                    GROUPNAME = org.home.mythtv.Constants.VIDEO_GROUPNAME
-
                     // Environments init
                     env.CONFIG = loadConfigs("jobs/mythtv")
                     echo "Loaded config:" + env.CONFIG.toString()
 
                     // Runtime init
-                    echo "Mounting ${mountPoint}..."
+                    echo "Mounting mythtv ..."
                     def ret_mount = mountService(
                         baseUrl: MOUNT_BASEURL,
                         action: 'mount',
