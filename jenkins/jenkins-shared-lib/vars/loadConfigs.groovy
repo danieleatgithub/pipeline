@@ -2,7 +2,6 @@ import groovy.json.JsonOutput
 import groovy.json.JsonSlurper
 
 def call(String jobPath) {
-    // Percorsi relativi alla workspace
     String globalPath = "${env.WORKSPACE}/jenkins/jenkins-shared-config/global-config.json"
     String projectPath = "${jobPath}/project-config.json"
 
@@ -21,7 +20,6 @@ def call(String jobPath) {
     // Merge: project override global
     def merged = mergeMaps(globalCfg, projectCfg)
 
-    // Ritorna la mappa
     return merged
 }
 
