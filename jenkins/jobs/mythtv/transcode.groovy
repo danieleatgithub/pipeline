@@ -27,7 +27,7 @@ pipeline {
 
                     // Runtime init
                     echo "Mounting mythtv ..."
-                    def ret_mount = mountService(
+                    def ret_mount = lenovosrvMountService(
                         baseUrl: MOUNT_BASEURL,
                         action: 'mount',
                         mountTarget: 'mythtv'
