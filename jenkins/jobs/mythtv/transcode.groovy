@@ -39,6 +39,13 @@ pipeline {
         stage('Get Storage Group Videos') {
             steps {
                 script {
+                    def lenovosrv_dirs = lenovosrvMountService(
+                        baseUrl: LENOVOSRV_BASEURL,
+                        action: 'status',
+                        mountTarget: 'mythtv'
+                    )
+                    echo "Found lenovosrv: ${lenovosrv_dirs}"
+                    // Fare prima la get lenovosrvMountService che ho i device montati per mapping
                     def storageDirs = mythtvStorage(
                         baseUrl: MYTH_BASEURL,
                         action: 'list',

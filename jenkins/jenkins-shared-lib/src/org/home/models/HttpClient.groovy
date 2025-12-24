@@ -23,14 +23,6 @@ class HttpClient implements Serializable {
 
     private Map request(String method, String path, Map body, Map headers) {
 
-    steps.echo """
-[HTTP REQUEST]
-  method : ${method}
-  url    : ${baseUrl}${path}
-  headers: ${headers}
-  body   : ${body ? body : '<empty>'}
-""".stripIndent()
-
         def response = steps.httpRequest(
             httpMode: method,
             url: "${baseUrl}${path}",

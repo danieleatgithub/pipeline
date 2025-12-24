@@ -13,6 +13,8 @@ def call(Map args = [:]) {
 
     def storageSvc = factory.storageService()
 
+    // TODO Valutare di ritornare sempre storageSvc ed spostare le action come
+    // metodi dell'oggetto
     switch (action) {
 
         case 'list':
