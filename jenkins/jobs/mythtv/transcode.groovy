@@ -1,6 +1,6 @@
 @Library('jenkins-shared-lib') _
 
-def GROUPNAME = org.home.myth.Constants.VIDEO_GROUPNAME
+def GROUPNAME = mythConstants().VIDEO_GROUPNAME
 
 pipeline {
     agent any
@@ -10,6 +10,8 @@ pipeline {
         LENOVOSRV_BASEURL = "http://192.168.1.49:18800"
         HOSTNAME = "i5-mythtv"
         FILE_TO_FIND = "example.mp4"
+
+
     }
 
     parameters {
