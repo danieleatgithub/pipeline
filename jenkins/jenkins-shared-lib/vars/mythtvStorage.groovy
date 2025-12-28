@@ -1,15 +1,14 @@
+import org.home.myth.models.MythServiceFactory
+
 def call(Map args = [:]) {
 
-    def baseUrl   = args.baseUrl   ?: error("baseUrl obbligatorio")
-    def action    = args.action    ?: error("action obbligatoria")
-    def groupName = args.groupName
-    def hostName  = args.hostName
-    def dirName   = args.dirName
+    String baseUrl   = args.baseUrl   ?: error("baseUrl mandatory")
+    String action    = args.action    ?: error("action obbligatoria")
+    String groupName = args.groupName
+    String hostName  = args.hostName
+    String dirName   = args.dirName
 
-    def factory = new org.home.mythtv.models.MythServiceFactory(
-        this,
-        baseUrl
-    )
+    def factory = new MythServiceFactory(this, baseUrl)
 
     def storageSvc = factory.storageService()
 

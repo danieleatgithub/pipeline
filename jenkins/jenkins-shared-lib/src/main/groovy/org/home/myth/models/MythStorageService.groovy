@@ -1,4 +1,4 @@
-package org.home.mythtv.models
+package org.home.myth.models
 
 import org.home.models.HttpClient
 

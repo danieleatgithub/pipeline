@@ -1,2 +1,3 @@
 /jenkins/jenkins-shared-config/global-config.json
 /jenkins/jobs/mythtv/project-config.json
+/jenkins/jenkins-shared-lib/build/
