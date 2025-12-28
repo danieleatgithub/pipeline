@@ -1,6 +1,6 @@
 @Library('jenkins-shared-lib') _
 
-def GROUPNAME = mythConstants().VIDEO_GROUPNAME
+def GROUPNAME = "Videos"
 
 pipeline {
     agent any
