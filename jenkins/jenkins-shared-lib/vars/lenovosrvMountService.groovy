@@ -1,11 +1,13 @@
+import org.home.lenovosrv.models.LenovosrvServiceFactory
+
 def call(Map args = [:]) {
 
-    def baseUrl     = args.baseUrl   ?: error("baseUrl obbligatorio")
-    def action      = args.action    ?: error("action obbligatoria")
-    def mountTarget = args.mountTarget
-    def fstype      = args.fstype
+    String baseUrl     = args.baseUrl   ?: error("baseUrl obbligatorio")
+    String action      = args.action    ?: error("action obbligatoria")
+    String mountTarget = args.mountTarget
+    String fstype      = args.fstype
 
-    def factory = new org.home.lenovosrv.models.LenovosrvServiceFactory(
+    def factory = new LenovosrvServiceFactory(
         this,
         baseUrl
     )
