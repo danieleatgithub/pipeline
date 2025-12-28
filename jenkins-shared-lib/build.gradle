@@ -1,0 +1,64 @@
+plugins {
+    id 'groovy'
+    id 'maven-publish'
+    id 'idea'
+}
+
+group = 'org.home'
+version = '1.0.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation localGroovy()
+
+    testImplementation 'org.spockframework:spock-core:2.3-groovy-3.0'
+    testImplementation 'cglib:cglib-nodep:3.3.0'
+    testImplementation 'org.objenesis:objenesis:3.3'
+    testImplementation 'net.bytebuddy:byte-buddy:1.14.9'
+
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+idea {
+    module {
+        sourceDirs += file('vars')
+    }
+}
+
+sourceSets {
+    main {
+        groovy {
+            srcDirs = ['src/main/groovy', 'vars']
+        }
+        resources {
+            srcDirs = ['src/main/resources']
+        }
+    }
+    test {
+        groovy {
+            srcDirs = ['src/test/groovy']
+        }
+    }
+}
+
+test {
+    useJUnitPlatform()
+    testLogging {
+        events "passed", "skipped", "failed"
+        exceptionFormat "full"
+        showStandardStreams = true
+    }
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            artifactId = 'jenkins-shared-lib'
+            from components.java
+        }
+    }
+}

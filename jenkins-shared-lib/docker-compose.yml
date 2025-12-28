@@ -1,0 +1,15 @@
+services:
+  jenkins-shared-lib-test:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jenkins-shared-lib-test
+    working_dir: /app
+    user: gradle
+    volumes:
+      - ./build:/app/build
+    command: >
+      gradle test
+      --no-daemon
+      --info
+      --stacktrace
