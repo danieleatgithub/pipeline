@@ -33,10 +33,10 @@ class HttpClient implements Serializable {
             consoleLogResponseBody: true
         )
 
-        def result = [
-            status  : response.status,
-            headers : response.headers ?: [:],
-            body    : [:]
+        Map<String, Object> result = [
+                status  : response.status,
+                headers : response.headers ?: [:],
+                body    : [:]
         ]
 
         if (response.content) {

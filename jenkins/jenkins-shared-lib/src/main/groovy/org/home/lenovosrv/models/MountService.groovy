@@ -43,6 +43,7 @@ class MountService implements Serializable {
      */
     List<Map> getMountsByFsType(String fstype) {
         def res = status()
-        return res?.mounts?.findAll { it.fstype == fstype } ?: []
+        return (res?.mounts?.findAll { it.fstype == fstype } ?: []) as List<Map>
     }
+
 }
