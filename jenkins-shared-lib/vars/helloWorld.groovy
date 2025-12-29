@@ -1,7 +1,6 @@
 import org.home.models.HelloWorld
 
-def call(String helloStringIn) {
-    def HelloObject = new HelloWorld(this)
-    def helloStringOut = HelloObject.hello(helloStringIn)
-    return helloStringOut
+def call(String name = "World") {
+    def hw = new HelloWorld(this)
+    echo hw.hello(name)
 }

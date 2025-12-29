@@ -10,8 +10,9 @@ class HelloWorld implements Serializable {
         this.baseHelloString = helloString
     }
 
-    static String hello(String helloString) {
+    String hello(String helloString) {
         return this.baseHelloString + helloString
     }
 
 }
+
