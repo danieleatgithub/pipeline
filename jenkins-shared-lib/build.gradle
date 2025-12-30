@@ -32,7 +32,7 @@ idea {
 sourceSets {
     main {
         groovy {
-            srcDirs = ['src/main/groovy', 'vars']
+            srcDirs = ['src/', 'vars']
         }
         resources {
             srcDirs = ['src/main/resources']
@@ -40,7 +40,7 @@ sourceSets {
     }
     test {
         groovy {
-            srcDirs = ['src/test/groovy']
+            srcDirs = ['test/']
         }
     }
 }

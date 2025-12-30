@@ -1,5 +1,8 @@
 FROM gradle:8.5-jdk11
 
+ENV TZ=Europe/Rome
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Usa utente gradle (non root)
 USER gradle
 
@@ -15,5 +18,4 @@ RUN gradle dependencies --no-daemon || true
 # Copia tutto il progetto
 COPY --chown=gradle:gradle . .
 
-# Comando di default: esegue il test specifico
-CMD ["gradle", "test", "--tests", "org.home.myth.models.MythStorageServiceTest", "--no-daemon", "--info", "--stacktrace"]
+CMD ["gradle", "test", "--no-daemon", "--info", "--stacktrace"]
