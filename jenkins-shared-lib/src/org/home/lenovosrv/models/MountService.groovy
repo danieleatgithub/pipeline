@@ -23,8 +23,8 @@ class MountService implements Serializable {
      */
     Map mount(String mountTarget) {
         return client.post("/mount/", [
-            mount_target: mountTarget,
-            mount       : true
+                mount_target: mountTarget,
+                mount       : true
         ], ['Accept': 'application/json'])
     }
 
@@ -33,8 +33,8 @@ class MountService implements Serializable {
      */
     Map umount(String mountTarget) {
         return client.post("/mount/", [
-            mount_target: mountTarget,
-            mount       : false
+                mount_target: mountTarget,
+                mount       : false
         ], ['Accept': 'application/json'])
     }
 
@@ -43,7 +43,6 @@ class MountService implements Serializable {
      */
     List<Map> getMountsByFsType(String fstype) {
         def res = status()
-        return (res?.mounts?.findAll { it.fstype == fstype } ?: []) as List<Map>
+        return res?.mounts?.findAll { it.fstype == fstype } ?: []
     }
-
 }
