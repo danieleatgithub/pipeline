@@ -7,7 +7,11 @@ pipeline {
         stage('Hello') {
             steps {
                 script {
-                    def ret_hello = helloWorld( "*Hello*" ).hello(" World ")
+                    def ret_hello = helloWorld( "*Hello*" ).
+                            sayHello().
+                            setHello("Mondo").
+                            sayHello().
+                            getHello()
                     echo "Done: " + ret_hello
                 }
             }

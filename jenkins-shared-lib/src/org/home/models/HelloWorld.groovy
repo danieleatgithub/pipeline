@@ -8,11 +8,20 @@ class HelloWorld implements Serializable {
     HelloWorld(steps, String helloString = "Hello ") {
         this.steps = steps
         this.baseHelloString = helloString
+        this.hello = "World"
     }
 
-    String hello(String helloString) {
-        steps.echo "[HelloWorld] helloString = ${helloString}"
-        return this.baseHelloString + helloString
+    HelloWorld sayHello() {
+        steps.echo "[HelloWorld] sayHello " + this.baseHelloString +  this.hello
+        return this
+    }
+    String getHello() {
+        steps.echo "[HelloWorld] getHello"
+        return this.baseHelloString + this.hello
+    }
+    HelloWorld setHello(String helloString) {
+        this.hello = helloString
+        return this
     }
 
 }
