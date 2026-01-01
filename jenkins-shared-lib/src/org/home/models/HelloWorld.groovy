@@ -11,6 +11,7 @@ class HelloWorld implements Serializable {
     }
 
     String hello(String helloString) {
+        steps.echo "[HelloWorld] helloString = ${helloString}"
         return this.baseHelloString + helloString
     }
 
