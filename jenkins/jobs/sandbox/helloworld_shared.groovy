@@ -7,7 +7,7 @@ pipeline {
         stage('Hello') {
             steps {
                 script {
-                    def ret_hello = helloWorld( "*World*" )
+                    def ret_hello = helloWorld( "*Hello*" ).hello(" World ")
                     echo "Done: " + ret_hello
                 }
             }

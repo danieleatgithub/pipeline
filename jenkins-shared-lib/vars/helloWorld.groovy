@@ -2,5 +2,5 @@ import org.home.models.HelloWorld
 
 def call(String name = "World") {
     def hw = new HelloWorld(this)
-    return hw.hello(name)
+    return hw
 }
