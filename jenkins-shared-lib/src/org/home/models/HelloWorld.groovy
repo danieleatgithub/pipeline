@@ -1,7 +1,5 @@
 package org.home.models
 
-//import com.cloudbees.groovy.cps.NonCPS
-
 class HelloWorld implements Serializable {
 
     private final def steps
