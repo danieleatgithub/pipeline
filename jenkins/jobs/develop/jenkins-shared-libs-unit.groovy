@@ -20,7 +20,6 @@ pipeline {
                     // Creiamo la cartella build-docker se non esiste
                     sh """
                         mkdir -p ${BUILD_DIR}
-                        chmod -R 777 ${BUILD_DIR}  # Permessi temporanei per il container gradle
                     """
                 }
             }
