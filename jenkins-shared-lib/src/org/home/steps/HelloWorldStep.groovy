@@ -16,13 +16,18 @@ class HelloWorldStep implements Serializable {
         this.model = new HelloWorld(base)
     }
 
-    String say() {
+    HelloWorldStep say() {
         String msg = model.hello
         steps.echo "[HelloWorld] ${msg}"
-        return msg
+        return this
     }
 
-    void setHello(String hello) {
+    HelloWorldStep setHello(String hello) {
         model.setHello(hello)
+        return this
+    }
+
+    String getHello() {
+        return model.getHello()
     }
 }
