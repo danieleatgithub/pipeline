@@ -14,10 +14,12 @@ pipeline {
 
         stage('Unit Tests') {
             steps {
-                sh '''
-                  docker compose build jenkins-shared-lib-test
-                  docker compose run --rm jenkins-shared-lib-test
-                '''
+                dir('jenkins-shared-lib') {
+                    sh '''
+                      docker compose build jenkins-shared-lib-test
+                      docker compose run --rm jenkins-shared-lib-test
+                    '''
+                }
             }
         }
     }
