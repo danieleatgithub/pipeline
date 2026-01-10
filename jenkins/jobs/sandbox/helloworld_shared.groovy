@@ -1,4 +1,4 @@
-@Library('jenkins-shared-lib@jenkins-interface-refactor') _
+@Library('jenkins-shared-lib') _
 
 pipeline {
     agent any
