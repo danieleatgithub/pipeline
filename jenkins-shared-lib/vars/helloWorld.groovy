@@ -1,5 +1,5 @@
-import org.home.models.HelloWorld
+import org.home.steps.HelloWorldStep
 
 def call(String base = "World") {
-    return new HelloWorld(this, base)
+    return new HelloWorldStep(this, base)
 }

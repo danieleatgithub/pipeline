@@ -1,31 +1,56 @@
 package org.home.models
 
-import org.home.models.HelloWorld
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class HelloWorldTest extends Specification {
 
-    def steps = Mock(Object)
-
-    def "hello() deve concatenare la stringa base con il parametro passato"() {
+    def "should return default hello string"() {
         given:
-        def service = new HelloWorld(steps, "Hello ")
+        def helloWorld = new HelloWorld()
 
-        when:
-        def result = service.hello("World")
-
-        then:
-        result == "Hello World"
+        expect:
+        helloWorld.getHello() == "Hello World"
     }
 
-    def "hello() deve usare la stringa di default se non specificata nel costruttore"() {
+    def "should change hello value using setter"() {
         given:
-        def service = new HelloWorld(steps)
+        def helloWorld = new HelloWorld()
 
         when:
-        def result = service.hello("Daniele")
+        helloWorld.setHello("Groovy")
 
         then:
-        result == "Hello Daniele"
+        helloWorld.getHello() == "Hello Groovy"
+    }
+
+    def "should support fluent API"() {
+        given:
+        def helloWorld = new HelloWorld()
+
+        when:
+        def result = helloWorld
+                .setHello("Spock")
+
+        then:
+        result.is(helloWorld)
+        helloWorld.getHello() == "Hello Spock"
+    }
+
+    @Unroll
+    def "should support custom baseHelloString=#baseHello"() {
+        given:
+        def helloWorld = new HelloWorld(baseHello)
+
+        expect:
+        helloWorld.getHello() == baseHello + "World"
+
+        where:
+        baseHello << ["Ciao ", "Hola ", "Bonjour "]
+    }
+
+    def "should be serializable"() {
+        expect:
+        new HelloWorld() instanceof Serializable
     }
 }
