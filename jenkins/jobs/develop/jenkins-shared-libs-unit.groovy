@@ -54,21 +54,24 @@ pipeline {
 
     post {
         always {
-            // Archivia i risultati dei test
+            // Archivia i risultati dei test JUnit
             junit "${DOCKER_COMPOSE_PATH}/${BUILD_DIR}/test-results/test/TEST-*.xml"
 
-            // Pubblica report HTML se presenti
+            // Pubblica report HTML correttamente
             publishHTML([
-                    allowMissing: true,
                     reportDir: "${DOCKER_COMPOSE_PATH}/${BUILD_DIR}/reports/tests/test",
                     reportFiles: 'index.html',
-                    reportName: 'Unit Test Report'
+                    reportName: 'Unit Test Report',
+                    keepAll: true,
+                    alwaysLinkToLastBuild: true
             ])
 
-            // Pulizia eventuali container o volumi Docker temporanei
+            // Pulizia container/volumi Docker
             dir("${DOCKER_COMPOSE_PATH}") {
                 sh 'docker compose down -v || true'
             }
         }
     }
+
+
 }
