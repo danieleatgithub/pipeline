@@ -7,7 +7,7 @@ services:
     working_dir: /app
     user: gradle
     volumes:
-      - ./build:/app/build
+      - ./build-docker:/app/build
     command: >
       gradle test
       --no-daemon
