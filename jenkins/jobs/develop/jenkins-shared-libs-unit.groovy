@@ -29,11 +29,14 @@ pipeline {
         stage('Unit Tests') {
             steps {
                 dir("${DOCKER_COMPOSE_PATH}") {
-                    // Build e run del container per i test
-                    sh """
-                        docker compose -f docker-compose.yml build jenkins-shared-lib-test
-                        docker compose -f docker-compose.yml run --rm jenkins-shared-lib-test
-                    """
+                    withEnv([
+                            'UID=115',
+                            'GID=124'
+                    ]) {
+                        sh 'mkdir -p build-docker'
+                        sh 'docker compose build jenkins-shared-lib-test'
+                        sh 'docker compose run --rm jenkins-shared-lib-test'
+                    }
                 }
             }
         }

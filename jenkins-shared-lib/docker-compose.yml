@@ -3,13 +3,11 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: jenkins-shared-lib-test
     working_dir: /app
-    user: gradle
+    user: "${UID}:${GID}"
     volumes:
       - ./build-docker:/app/build
     command: >
       gradle test
       --no-daemon
       --info
-      --stacktrace
