@@ -14,6 +14,6 @@ COPY build.gradle settings.gradle ./
 RUN gradle dependencies --no-daemon || true
 
 # Copia tutto il progetto
-COPY --chown=gradle:gradle . .
+COPY . .
 
 CMD ["gradle", "test", "--no-daemon", "--info", "--stacktrace"]
