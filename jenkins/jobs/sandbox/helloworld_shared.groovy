@@ -8,9 +8,9 @@ pipeline {
             steps {
                 script {
                     def ret_hello = helloWorld( "*Hello*" ).
-                            sayHello().
+                            say().
                             setHello("Mondo").
-                            sayHello().
+                            say().
                             getHello()
                     echo "Done: " + ret_hello
                 }
