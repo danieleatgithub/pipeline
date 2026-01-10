@@ -63,7 +63,8 @@ pipeline {
                     reportFiles: 'index.html',
                     reportName: 'Unit Test Report',
                     keepAll: true,
-                    alwaysLinkToLastBuild: true
+                    alwaysLinkToLastBuild: true,
+                    allowMissing: true
             ])
 
             // Pulizia container/volumi Docker
