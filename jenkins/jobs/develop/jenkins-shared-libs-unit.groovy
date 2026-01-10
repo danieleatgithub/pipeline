@@ -11,7 +11,13 @@ pipeline {
                 checkout scm
             }
         }
-
+        stage('Docker Check') {
+            steps {
+                sh 'whoami'
+                sh 'groups'
+                sh 'docker ps'
+            }
+        }
         stage('Unit Tests') {
             steps {
                 dir('jenkins-shared-lib') {
