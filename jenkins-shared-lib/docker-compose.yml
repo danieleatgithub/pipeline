@@ -4,10 +4,16 @@ services:
       context: .
       dockerfile: Dockerfile
     working_dir: /app
-    user: "${UID}:${GID}"
     volumes:
+      - .:/app
       - ./build-docker:/app/build
+      - gradle-cache:/app/.gradle_cache
+    user: "${UID:-1000}:${GID:-1000}" # Usa l'UID/GID dell'host, default 1000
+    environment:
+      - GRADLE_USER_HOME=/app/.gradle_cache # Sposta la cache per evitare conflitti
     command: >
-      gradle test
-      --no-daemon
-      --info
+      gradle test 
+      --no-daemon 
+      --info 
+      --parallel 
+      --build-cache
