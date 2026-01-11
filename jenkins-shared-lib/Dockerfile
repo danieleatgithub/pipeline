@@ -10,6 +10,7 @@ RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Definizione della directory di lavoro
 WORKDIR /app
+RUN chmod 1777 /tmp && mkdir -p /app && chmod 777 /app
 
 # Creazione della cartella build e gestione permessi per l'utente gradle
 # Questo evita problemi di scrittura quando si montano volumi esterni
