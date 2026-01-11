@@ -9,6 +9,7 @@ pipeline {
     stages {
         stage('Build & Test') {
             steps {
+                sh "git config --global --add safe.directory ${WORKSPACE}"
                 sh 'cd jenkins-shared-lib && ./gradlew clean test'
                 sh 'cd jenkins-shared-lib && ls -l'
             }
@@ -29,6 +30,15 @@ pipeline {
             }
             steps {
                 sh 'cd jenkins-shared-lib && ./gradlew publish'
+            }
+        }
+        post {
+            success {
+                archiveArtifacts artifacts: 'jenkins-shared-lib/build/libs/*.jar', fingerprint: true
+                echo "JAR archiviato con successo su Jenkins!"
+            }
+            always {
+                junit '**/build/test-results/**/*.xml'
             }
         }
     }
