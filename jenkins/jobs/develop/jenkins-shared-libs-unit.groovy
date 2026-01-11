@@ -21,7 +21,12 @@ pipeline {
         }
 
         stage('Publish') {
-            when { branch 'main' }
+            when {
+                anyOf {
+                    branch 'master'
+                    branch 'unstable'
+                }
+            }
             steps {
                 sh 'cd jenkins-shared-lib && ./gradlew publish'
             }
