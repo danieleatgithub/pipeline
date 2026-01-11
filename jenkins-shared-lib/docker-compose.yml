@@ -17,3 +17,7 @@ services:
       --info 
       --parallel 
       --build-cache
+volumes:
+  # Dichiarazione del volume per mantenere le dipendenze scaricate
+  gradle-cache:
+    driver: local
