@@ -2,16 +2,15 @@ pipeline {
     agent {
         docker {
             image 'gradle:8.11-jdk17'
-            // Ottimizza le prestazioni riutilizzando la cache di Gradle tra le build
-            args '-v $HOME/.gradle:/home/gradle/.gradle'
+            args '-u root --entrypoint=""'
         }
     }
 
     stages {
         stage('Build & Test') {
             steps {
-                // Usa lo script wrapper incluso nel tuo repo
-                sh './gradlew clean test'
+                sh 'cd jenkins-shared-lib && ls -l'
+                sh 'cd jenkins-shared-lib && ./gradlew clean test'
             }
             post {
                 always {
