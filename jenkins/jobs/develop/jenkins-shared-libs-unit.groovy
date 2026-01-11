@@ -10,7 +10,7 @@ pipeline {
         stage('Build & Test') {
             steps {
                 sh "git config --global --add safe.directory ${WORKSPACE}"
-                sh 'cd jenkins-shared-lib && ./gradlew clean test'
+                sh 'cd jenkins-shared-lib && ./gradlew clean test jar'
                 sh 'cd jenkins-shared-lib && ls -l'
             }
             post {
