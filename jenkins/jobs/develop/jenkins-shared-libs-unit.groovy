@@ -32,14 +32,14 @@ pipeline {
                 sh 'cd jenkins-shared-lib && ./gradlew publish'
             }
         }
-        post {
-            success {
-                archiveArtifacts artifacts: 'jenkins-shared-lib/build/libs/*.jar', fingerprint: true
-                echo "JAR archiviato con successo su Jenkins!"
-            }
-            always {
-                junit '**/build/test-results/**/*.xml'
-            }
+    }
+    post {
+        success {
+            archiveArtifacts artifacts: 'jenkins-shared-lib/build/libs/*.jar', fingerprint: true
+            echo "JAR archiviato con successo su Jenkins!"
+        }
+        always {
+            junit '**/build/test-results/**/*.xml'
         }
     }
 }
