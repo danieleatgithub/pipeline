@@ -9,13 +9,13 @@ pipeline {
     stages {
         stage('Build & Test') {
             steps {
-                sh 'cd jenkins-shared-lib && ls -l'
                 sh 'cd jenkins-shared-lib && ./gradlew clean test'
+                sh 'cd jenkins-shared-lib && ls -l'
             }
             post {
                 always {
                     // Pubblica i risultati dei test JUnit su Jenkins
-                    junit 'build/test-results/test/*.xml'
+                    junit 'jenkins-shared-lib/build/test-results/test/*.xml'
                 }
             }
         }
@@ -23,7 +23,7 @@ pipeline {
         stage('Publish') {
             when { branch 'main' }
             steps {
-                sh './gradlew publish'
+                sh 'cd jenkins-shared-lib && ./gradlew publish'
             }
         }
     }
