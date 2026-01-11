@@ -11,12 +11,13 @@ services:
     user: "${UID:-1000}:${GID:-1000}" # Usa l'UID/GID dell'host, default 1000
     environment:
       - GRADLE_USER_HOME=/app/.gradle_cache # Sposta la cache per evitare conflitti
+      - GRADLE_RO_DEP_CACHE=/app/.gradle_cache
     command: >
       gradle test 
+      -Dorg.gradle.native.dir=/tmp/gradle-native
       --no-daemon 
-      --info 
-      --parallel 
-      --build-cache
+      --info
+
 volumes:
   # Dichiarazione del volume per mantenere le dipendenze scaricate
   gradle-cache:
