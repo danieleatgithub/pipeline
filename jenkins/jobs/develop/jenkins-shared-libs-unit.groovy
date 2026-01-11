@@ -1,80 +1,31 @@
 pipeline {
-    agent any
-
-    environment {
-        DOCKER_COMPOSE_PATH = 'jenkins-shared-lib'       // Sottocartella dove si trova docker-compose.yml
-        BUILD_DIR = 'build-docker'                       // Cartella dedicata per Docker/Gradle build
+    agent {
+        docker {
+            image 'gradle:8.11-jdk17'
+            // Ottimizza le prestazioni riutilizzando la cache di Gradle tra le build
+            args '-v $HOME/.gradle:/home/gradle/.gradle'
+        }
     }
 
     stages {
-
-        stage('Checkout') {
+        stage('Build & Test') {
             steps {
-                checkout scm
+                // Usa lo script wrapper incluso nel tuo repo
+                sh './gradlew clean test'
             }
-        }
-
-        stage('Prepare Workspace') {
-            steps {
-                dir("${DOCKER_COMPOSE_PATH}") {
-                    // Creiamo la cartella build-docker se non esiste
-                    sh """
-                        mkdir -p ${BUILD_DIR}
-                    """
+            post {
+                always {
+                    // Pubblica i risultati dei test JUnit su Jenkins
+                    junit 'build/test-results/test/*.xml'
                 }
             }
         }
 
-        stage('Unit Tests') {
+        stage('Publish') {
+            when { branch 'main' }
             steps {
-                dir("${DOCKER_COMPOSE_PATH}") {
-                    withEnv([
-                            'UID=115',
-                            'GID=124'
-                    ]) {
-                        sh 'mkdir -p build-docker'
-                        sh 'docker compose build jenkins-shared-lib-test'
-                        sh 'docker compose run --rm jenkins-shared-lib-test'
-                    }
-                }
-            }
-        }
-
-        stage('Debug Workspace') {
-            steps {
-                dir("${DOCKER_COMPOSE_PATH}") {
-                    sh """
-                        echo "Workspace content:"
-                        ls -la
-                        echo "Build directory content:"
-                        ls -la ${BUILD_DIR}
-                    """
-                }
+                sh './gradlew publish'
             }
         }
     }
-
-    post {
-        always {
-            // Archivia i risultati dei test JUnit
-            junit "${DOCKER_COMPOSE_PATH}/${BUILD_DIR}/test-results/test/TEST-*.xml"
-
-            // Pubblica report HTML correttamente
-            publishHTML([
-                    reportDir: "${DOCKER_COMPOSE_PATH}/${BUILD_DIR}/reports/tests/test",
-                    reportFiles: 'index.html',
-                    reportName: 'Unit Test Report',
-                    keepAll: true,
-                    alwaysLinkToLastBuild: true,
-                    allowMissing: true
-            ])
-
-            // Pulizia container/volumi Docker
-            dir("${DOCKER_COMPOSE_PATH}") {
-                sh 'docker compose down -v || true'
-            }
-        }
-    }
-
-
 }
